@@ -108,6 +108,13 @@ Target.create "Run" (fun _ ->
     |> ignore
 )
 
+// yarn webpack -p -o ./docs/bundle.js
+// dotnet fake build -t bundle -s
+Target.create "Bundle" (fun _ ->
+    runTool yarnTool "webpack-cli -o ./docs/bundle.js -p" __SOURCE_DIRECTORY__
+    printfn "Made bundle?"
+)
+
 
 
 
@@ -118,6 +125,7 @@ open Fake.Core.TargetOperators
 "Clean"
     ==> "InstallClient"
     ==> "Build"
+    ==> "Bundle"
 
 
 "Clean"
